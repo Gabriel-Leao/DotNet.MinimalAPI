@@ -4,9 +4,9 @@ using MiniTodo.Models;
 
 namespace MiniTodo.ViewModels;
 
-public abstract class CreateTodoViewModel : Notifiable<Notification>
+public class CreateTodoViewModel : Notifiable<Notification>
 {
-    private string Title { get; } = null!;
+    public string Title { get; set; } = null!;
 
     public Todo MapTo()
     {
