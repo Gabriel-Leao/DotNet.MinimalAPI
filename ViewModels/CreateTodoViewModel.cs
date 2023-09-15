@@ -1,11 +1,12 @@
 using Flunt.Notifications;
 using Flunt.Validations;
+using MiniTodo.Models;
 
 namespace MiniTodo.ViewModels;
 
-public class CreateTodoViewModel : Notifiable<Notification>
+public abstract class CreateTodoViewModel : Notifiable<Notification>
 {
-    public string Title { get; set; }
+    private string Title { get; } = null!;
 
     public Todo MapTo()
     {
