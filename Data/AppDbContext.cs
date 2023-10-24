@@ -7,14 +7,12 @@ public class AppDbContext : DbContext
 {
     public DbSet<Todo>? Todos { get; set; }
 
-    protected readonly IConfiguration Configuration;
-
-    public AppDbContext(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
+    private readonly string? _server = Environment.GetEnvironmentVariable("SERVER");
+    private readonly string? _user = Environment.GetEnvironmentVariable("USER");
+    private readonly string? _db = Environment.GetEnvironmentVariable("DB");
+    private readonly string? _password = Environment.GetEnvironmentVariable("PASS");
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
+        => options.UseNpgsql($"Host={_server};Username={_user};Password={_password};Database={_db}");
 
 }

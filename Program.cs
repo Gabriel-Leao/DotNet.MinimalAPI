@@ -2,6 +2,8 @@ using MiniTodo.Data;
 using MiniTodo.Models;
 using MiniTodo.ViewModels;
 
+DotNetEnv.Env.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddEndpointsApiExplorer();
@@ -10,8 +12,6 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
-
-DotNetEnv.Env.Load();
 
 app.MapGet("/", context =>
 {

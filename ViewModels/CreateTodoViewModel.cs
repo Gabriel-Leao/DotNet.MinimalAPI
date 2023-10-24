@@ -8,15 +8,22 @@ public class CreateTodoViewModel : Notifiable<Notification>
 {
     public string Title { get; set; } = null!;
 
+    public bool Done { get; set; }
+
     public Todo MapTo()
     {
-        var contract = new Contract<Notification>()
+        var titleContract = new Contract<Notification>()
             .Requires()
             .IsNotNull(Title, "Informe o titúlo da tarefa")
             .IsGreaterThan(Title, 5, "O titúlo da tarefa deve ter mais de 5 caracteres");
 
-        AddNotifications(contract);
+        var doneContract = new Contract<Notification>()
+            .Requires()
+            .IsNotNull(Done, "Informe o status da tarefa");
 
-        return new Todo(Guid.NewGuid(), Title, false);
+        AddNotifications(titleContract);
+        AddNotifications(doneContract);
+
+        return new Todo(Guid.NewGuid(), Title, Done);
     }
 }
