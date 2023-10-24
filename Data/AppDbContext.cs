@@ -6,12 +6,15 @@ namespace MiniTodo.Data;
 public class AppDbContext : DbContext
 {
     public DbSet<Todo>? Todos { get; set; }
-    private readonly string? _server = Environment.GetEnvironmentVariable("SERVER");
-    private readonly string? _user = Environment.GetEnvironmentVariable("USER");
-    private readonly string? _db = Environment.GetEnvironmentVariable("DB");
-    private readonly string? _password = Environment.GetEnvironmentVariable("PASS");
+
+    protected readonly IConfiguration Configuration;
+
+    public AppDbContext(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseMySQL($"server={_server};database={_db};user={_user};password={_password}");
+        => options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
 
 }
